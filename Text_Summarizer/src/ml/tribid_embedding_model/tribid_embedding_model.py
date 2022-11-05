@@ -1,3 +1,16 @@
+import os
+import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt
+import tensorflow as tf
+from tensorflow.keras import layers
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+import tensorflow_hub as hub
+import string
+from tensorflow.keras.layers import TextVectorization
+
 # Token inputs
 token_inputs = layers.Input(shape=[], dtype="string", name="token_inputs")
 token_embeddings = tf_hub_embedding_layer(token_inputs)
