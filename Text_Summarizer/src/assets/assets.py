@@ -1,4 +1,6 @@
-DATA_DIR = "PubMed_20k_RCT_numbers_replaced_with_at_sign/"
+DATA_DIR = "./data"
+
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
 def calculate_results(y_true, y_pred):
   """
