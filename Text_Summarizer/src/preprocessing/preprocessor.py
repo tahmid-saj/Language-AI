@@ -6,10 +6,7 @@ import tensorflow as tf
 from tensorflow.keras import layers
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support
-import tensorflow_hub as hub
 import string
-from tensorflow.keras.layers import TextVectorization
 
 def get_lines(filename):
     """
