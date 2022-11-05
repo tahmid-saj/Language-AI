@@ -1,9 +1,25 @@
-train_lines = get_lines(DATA_DIR + "train.txt")
+from ts.preprocessing.preprocessor import *
+
+import os
+import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt
+import tensorflow as tf
+from tensorflow.keras import layers
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+import string
+
+DATA_DIR = "./data"
+
+filenames = [DATA_DIR + filename for filename in os.listdir(DATA_DIR)]
+print(filenames)
+
+train_lines = get_lines(DATA_DIR + "/train.txt")
 print(train_lines[:20])
 
-train_samples = preprocess_text_with_line_numbers(DATA_DIR + "train.txt")
-val_samples = preprocess_text_with_line_numbers(DATA_DIR + "dev.txt")
-test_samples = preprocess_text_with_line_numbers(DATA_DIR + "test.txt")
+train_samples = preprocess_text_with_line_numbers(DATA_DIR + "/train.txt")
+val_samples = preprocess_text_with_line_numbers(DATA_DIR + "/dev.txt")
+test_samples = preprocess_text_with_line_numbers(DATA_DIR + "/test.txt")
 
 print([(i, "\n") for i in train_samples[:1]])
 
