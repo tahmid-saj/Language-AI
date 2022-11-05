@@ -1,31 +1,52 @@
-# Tokenization
+from ts.ensemble_models.ensemble_models import *
+from ts.model_evaluation.model_evaluation import *
 
-mean_word_length = int(mean([len(w.split()) for w in train_text]))
+import pandas as pd
+import numpy as np
+import tensorflow as tf
 
-tokenizer = layers.TextVectorization(max_tokens=VOCAB_LENGTH, standardize="lower_and_strip_punctuation", split="whitespace", ngrams=None, output_mode="int", output_sequence_length=mean_word_length)
-tokenizer.adapt(train_text)
+import logging
+import os
+import random
+from datetime import datetime, timedelta
+from tensorflow.keras import layers
+from statistics import mean
 
-vocab = tokenizer.get_vocabulary()
-frequent_words = vocab[:10]
-unfrequent_words = vocab[-10:]
-print(f"Frequent words: {frequent_words}\n Unfrequent words: {unfrequent_words}")
+from sklearn.model_selection import train_test_split
+
+BATCH_SIZE = 32
+VOCAB_LENGTH = 15000
+
+# # Tokenization
+# mean_word_length = int(mean([len(w.split()) for w in train_text]))
+
+# tokenizer = layers.TextVectorization(max_tokens=VOCAB_LENGTH, standardize="lower_and_strip_punctuation", split="whitespace", ngrams=None, output_mode="int", output_sequence_length=mean_word_length)
+# tokenizer.adapt(train_text)
+
+# vocab = tokenizer.get_vocabulary()
+# frequent_words = vocab[:10]
+# unfrequent_words = vocab[-10:]
+# print(f"Frequent words: {frequent_words}\n Unfrequent words: {unfrequent_words}")
 
 # Dense model
 
 class DenseModel():
-    def __init__(self, tokenizer, n_units=1, activation="sigmoid"):
+    def __init__(self, tokenizer, vocab, mean_word_length, n_units=1, activation="sigmoid"):
         self.tokenizer = tokenizer
         self.n_units = n_units
         self.activation = activation
+        
+        self.vocab = vocab
+        self.mean_word_length = mean_word_length
     
     def get_model(self, model_name="dense_model"):
         dense_inputs = layers.Input(shape=(1, ), dtype="string")
         
         x = self.tokenizer(dense_inputs)
-        dense_embedding = layers.Embedding(input_dim=len(vocab), 
+        dense_embedding = layers.Embedding(input_dim=len(self.vocab), 
                                            output_dim=128, 
                                            embeddings_initializer="uniform", 
-                                           input_length=mean_word_length, 
+                                           input_length=self.mean_word_length, 
                                            name="embedding")
         x = dense_embedding(x)
         

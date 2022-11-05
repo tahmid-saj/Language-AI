@@ -6,9 +6,10 @@ import random
 import zipfile
 
 import logging
-import confuse
 import os
 from datetime import datetime, timedelta
+
+from sklearn.model_selection import train_test_split
 
 import re
 import string
@@ -16,8 +17,8 @@ import string
 BATCH_SIZE = 32
 VOCAB_LENGTH = 15000
 
-train_df = pd.read_csv("train_dataset.csv")[["text", "target"]]
-test_df = pd.read_csv("test_dataset.csv")[["text"]]
+train_df = pd.read_csv("./data/train/train_dataset.csv")[["text", "target"]]
+test_df = pd.read_csv("./data/test/test_dataset.csv")[["text"]]
 print(train_df.head())
 
 print(test_df.head())

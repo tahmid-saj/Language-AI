@@ -1,0 +1,9 @@
+# Configuration
+pandas
+numpy
+confuse
+scikit-learn
+matplotlib
+tensorflow
+boto3
+s3
